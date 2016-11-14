@@ -1,44 +1,66 @@
 
-# Profile DataFrame
+# Profile Pandas DataFrame
 
 ## Tests on individual columns
 
-Base 
-    * `Count Missing`
+Tests consists of a name, tests and when applicable an interpretation.
+
+Base
+
+    * `Count`, [`Empty`]
+    * `Count distinct`, [`All identical`, `All unique`] 
+    * `Count missing`, [`All missing`]
     * `Mode`
-    * `All Unique`
-    * `All Same`
-    * `All Null`
 
 Number(Base) e.g. Float, Int, Date, Datetime
+
     * `Min`
+    * `First quartile`
+    * `Second quartile`
+    * `Third quartile`
+    * `Fourth quartile`
     * `Max`
-    * `Percentiles`
-    * `Outliers`
+    * `Standard Deviation`
+    * `Skew`
+    * `Kurtosis`
+    
+    * `Example Numeric Outliers` - >= 3 standard deviations
+    * ``
+    
+    
 
 String(Base)
+
     * `Min Length`
     * `Max Length`
-    * `Outliers`
+    * `String Outliers`
     * FLAG - Ignore Whitespace
 
 ## Tests across columns
 
 Base
-    * Identical columns
+
+    * Columns with identical values
+        * Give user command to drop duplicate columns
+    * Columns with identical headers
 
 Number(Base)
+
     * Pairs
     * Correlation between columns
     * Multicollinearity
     
 String(Base)
+
     * Correlation between columns
 
 ## Tests across rows
 
 Base
-    * Identical rows
+
+    * Count rows (if zero, then stop running tests)
+    * Identical rows e.g. df.duplicated
+        * Give user command to drop duplicate rows
 
 
 ### References

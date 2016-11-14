@@ -6,34 +6,38 @@ class Tests:
 
     def __init__(self, data):
         self.data = data
+        self.results = pd.DataFrame(columns=['Test', 'Result', 'Annotation'])
+        self.results2 = []
 
-    def count(self):
-        """Count of items"""
-        return len(self.data)
+    def store_result(self, test, result, annotation=''):
+        self.results = self.results.append({'Test': test,
+                             'Result': result,
+                             'Annotation': annotation}, ignore_index=True)
+        return
 
-    def count_distinct(self):
-        """Distinct count of items"""
-        return len(set(self.data))
-
-    def count_missing(self):
-        """Count missing items"""
-        return self.data.isnull().sum()
+    def counts(self):
+        # Prepare variables for count tests
+        count = len(self.data)
+        count_distinct = len(set(self.data))
+        count_missing = self.data.isnull().sum()
+        # Check for specific annotations
+        annotation = ''
+        if count == 0:
+            annotation = 'no records'
+        elif count_missing == count:
+            annotation = 'all missing'
+        elif count_distinct == 1:
+            annotation = 'all identical'
+        elif count_distinct == count:
+            annotation = 'all unique'
+        self.store_result('Count', count, annotation)
 
     def mode(self):
         """Mode"""
-        
-
-    def report(self):
-        """Report out tests"""
-        tests = [self.count,
-                 self.count_distinct,
-                 self.count_missing]
-        template = '{tests:<30}{results:>50}'
-        print '--- Results ---'
-        for t in tests:
-            print template.format(tests=t.__doc__, results=t())
+        return self.data.mode().to_string(index=False)
 
 
-test_series = pd.Series([1, 2, 3, 3, np.NaN, 5, -3])
+test_series = pd.Series([1, 1, 1, 1, 1, 1, 1])
 report = Tests(test_series)
-report.report()
+report.counts()
+print report.results
