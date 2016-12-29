@@ -1,10 +1,22 @@
 import numpy as np
 import pandas as pd
+import string
+import re
+
+
+def fuzzy_compare(str1, str2):
+    """Compare strings ignoring whitespace, punctuation and case."""
+    remove = string.whitespace + string.punctuation
+    rgx = re.compile('[%s]' % remove)
+    str1 = rgx.sub('', str1).lower()
+    str2 = rgx.sub('', str2).lower()
+    return str1 == str2
 
 
 def find_series_type(self):
     """Determine data type of series"""
     # todo(danmat) Are the values in the list homogeneous
+    # todo(danmat) Add detection for dates
     # Are they strings?
     if self.dtype in (np.float64, np.int64, int, float):
         return 'numeric'
@@ -18,6 +30,7 @@ class Profile:
     def __init__(self, data):
         self.data = data
         self.results = pd.DataFrame(columns=['Test', 'Result', 'Annotation'])
+        # TODO(danmat) Add actual data type of series to result
 
         # Direct tests as needed
         if find_series_type == 'numeric':

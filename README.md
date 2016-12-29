@@ -1,8 +1,14 @@
 
 # Profile Pandas DataFrame
 
+## Goals
 
-## Sample usage
+1. Leverage Pandas. Require input in DataFrame or Series inputs. 
+1. Ease early stage data analysis. E.g. get quick, broad feel of the data.
+1. Extensible to customizing for other data
+
+
+### Sample usage
 
 ```
 >>> df = pd.DataFrame({'col0': ['one','one','one','two','two'],
@@ -12,20 +18,17 @@
 >>> df.profile()
 ```
 
+## Tests on columns
 
-
-## Tests on individual columns
-
-Tests consists of a name, tests and when applicable an interpretation.
-
-Counts
+Base tests
 
     * `Count`, [`Empty`]
     * `Count distinct`, [`All identical`, `All unique`] 
     * `Count missing`, [`All missing`]
 
-Number(Base) e.g. Float, Int, Date, Datetime
+Number tests
 
+    * `Underlying data type`
     * `Min`
     * `Max`
     * `Quartiles`
@@ -33,22 +36,26 @@ Number(Base) e.g. Float, Int, Date, Datetime
     * `Standard Deviation`
     * `Skew`
     * `Kurtosis`
+    * `Mean`
+    * `Trimmed Mean`
     
     * `Example numeric outliers` e.g. >= 3 standard deviations
 
-Dates
+Date tests
 
     * Contiguous check
-
     * Odd looking dates e.g. bad conversion from epoch to give 1000x off
 
 
-String(Base)
+String tests
 
+    * Value counts
     * `Min Length`
     * `Max Length`
-    * `String Outliers`
+    * `String Outliers` outliers by number of occurences, outliers by length of string
     * FLAG - Ignore Whitespace
+    * Could actually be a date
+    * Could actually be a currency
     
     * 'Example string outliers' e.g. 
 
@@ -56,9 +63,10 @@ String(Base)
 
 Base
 
-    * Columns with identical values
-        * Give user command to drop duplicate columns
+    * Columns with identical values; enable export of columns to enable easy correction
     * Columns with identical headers
+    * Find possible combo keys to dataset.
+    * multi-colinearity
 
 Number(Base)
 
@@ -75,13 +83,15 @@ String(Base)
 Base
 
     * Count rows (if zero, then stop running tests)
-    * Identical rows e.g. df.duplicated
-        * Give user command to drop duplicate rows
+    * Identical rows e.g. df.duplicated. Give user command to drop duplicate rows
 
 
 ### References
 * [Stackoverflow with pandas](http://stackoverflow.com/questions/17095101/outputting-difference-in-two-pandas-dataframes-side-by-side-highlighting-the-d)
 * [Practical business python example](http://pbpython.com/excel-diff-pandas.html)
+
+
+
 
 
 
@@ -99,3 +109,7 @@ print('\nexamining test_series_3')
 test_series_3 = pd.Series(range(10))
 report = Profile(test_series_3)
 print(report.results)
+
+
+DescribeBy like in the R psych package
+http://www.statmethods.net/stats/descriptives.html
