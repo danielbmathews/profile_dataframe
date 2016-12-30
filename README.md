@@ -25,6 +25,8 @@ Base tests
     * `Count`, [`Empty`]
     * `Count distinct`, [`All identical`, `All unique`] 
     * `Count missing`, [`All missing`]
+    * `Lowest values`
+    * `Highest values`
 
 Number tests
 
@@ -90,25 +92,6 @@ Base
 * [Stackoverflow with pandas](http://stackoverflow.com/questions/17095101/outputting-difference-in-two-pandas-dataframes-side-by-side-highlighting-the-d)
 * [Practical business python example](http://pbpython.com/excel-diff-pandas.html)
 
-
-
-
-
-
-print('\nexamining test_series_1')
-test_series_1 = pd.Series([1, 1, 1, 1, 1, 1, 1])
-report = Profile(test_series_1)
-print(report.results)
-
-print('\nexamining test_series_2')
-test_series_2 = pd.Series([1, 3, 999, 1, 9, 1, 1])
-report = Profile(test_series_2)
-print(report.results)
-
-print('\nexamining test_series_3')
-test_series_3 = pd.Series(range(10))
-report = Profile(test_series_3)
-print(report.results)
 
 
 DescribeBy like in the R psych package
